@@ -8,6 +8,7 @@ import os
 
 # Add the necessary imports for the starter code.
 from starter.ml.model import train_model, compute_model_metrics, inference
+from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 # Add code to load in the data.
 data_path = 'starter/data/census.csv'  # Replace with the path to your data file
@@ -29,6 +30,14 @@ cat_features = [
 X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
+
+# Save the fitted OneHotEncoder
+encoder_path = 'starter/starter/encoder.pkl'  # Replace with the path where you want to save your encoder
+joblib.dump(encoder, encoder_path)
+
+# Save the fitted LabelBinarizer
+lb_path = 'starter/starter/label_binarizer.pkl'  # Replace with the path where you want to save your label binarizer
+joblib.dump(lb, lb_path)
 
 # Process the test data with the process_data function.
 X_test, y_test, _, _ = process_data(

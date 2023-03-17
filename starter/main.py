@@ -8,12 +8,12 @@ from starter.ml.model import inference
 app = FastAPI()
 
 # Load the trained model
-model_path = 'path/to/your/model.pkl'
+model_path = 'starter/starter/ml/model.pkl'
 model = joblib.load(model_path)
 
 # Load the encoder and label binarizer
-encoder_path = 'path/to/your/encoder.pkl'
-lb_path = 'path/to/your/label_binarizer.pkl'
+encoder_path = 'starter/starter/ml/encoder.pkl'
+lb_path = 'starter/starter/ml/label_binarizer.pkl'
 encoder = joblib.load(encoder_path)
 lb = joblib.load(lb_path)
 
