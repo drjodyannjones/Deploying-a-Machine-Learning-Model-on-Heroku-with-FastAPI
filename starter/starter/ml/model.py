@@ -68,3 +68,10 @@ def inference(model, X):
     preds = model.predict(X)
 
     return preds
+
+if __name__ == 'main':
+    # Run the script
+    train_model(X_train, y_train)
+    compute_model_metrics(y, preds)
+    inference(model, X)
+
