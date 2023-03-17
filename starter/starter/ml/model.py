@@ -1,6 +1,6 @@
+import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-
 
 def train_model(X_train, y_train):
     """
@@ -69,9 +69,19 @@ def inference(model, X):
 
     return preds
 
-if __name__ == 'main':
-    # Run the script
-    train_model(X_train, y_train)
-    compute_model_metrics(y, preds)
-    inference(model, X)
+if __name__ == '__main__':
+    # Load your data and split it into X_train, y_train, X_test, and y_test here
+    # ...
 
+    # Train the model
+    model = train_model(X_train, y_train)
+
+    # Run inference on the test data
+    preds = inference(model, X_test)
+
+    # Compute model metrics
+    precision, recall, fbeta = compute_model_metrics(y_test, preds)
+
+    print(f"Precision: {precision}")
+    print(f"Recall: {recall}")
+    print(f"F1 Score: {fbeta}")

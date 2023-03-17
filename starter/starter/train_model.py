@@ -1,6 +1,10 @@
 # Script to train machine learning model.
-
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from starter.ml.data import process_data
+import joblib
+import os
+
 
 # Add the necessary imports for the starter code.
 
