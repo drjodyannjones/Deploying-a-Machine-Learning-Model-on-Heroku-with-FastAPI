@@ -24,4 +24,8 @@ def test_compute_model_metrics():
 
 def test_inference():
     X = np.array([[1, 2], [3, 4]])
+    model = train_model(X, np.array([0, 1]))
+    preds = inference(model, X)
 
+    assert len(preds) == 2, "Incorrect number of predictions"
+    assert all(isinstance(p, int) for p in preds), "Predictions should be integers"
