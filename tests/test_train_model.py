@@ -47,7 +47,7 @@ def test_train_model():
     ]
 
     X_train, y_train, encoder, lb = process_data(
-        train, categorical_features=cat_features, label="salary", training=True
+        train, categorical_features=cat_features, label="", training=True
     )
     model = train_model(X_train, y_train)
     assert model is not None, "Model not returned"
@@ -68,10 +68,10 @@ def test_inference():
     ]
 
     X_train, y_train, encoder, lb = process_data(
-        train, categorical_features=cat_features, label="salary", training=True
+        train, categorical_features=cat_features, label="", training=True
     )
     X_test, y_test, _, _ = process_data(
-        test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+        test, categorical_features=cat_features, label="", training=False, encoder=encoder, lb=lb
     )
     model = train_model(X_train, y_train)
     preds = inference(model, X_test)
@@ -95,10 +95,10 @@ def test_compute_model_metrics():
     ]
 
     X_train, y_train, encoder, lb = process_data(
-        train, categorical_features=cat_features, label="salary", training=True
+        train, categorical_features=cat_features, label="", training=True
     )
     X_test, y_test, _, _ = process_data(
-        test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+        test, categorical_features=cat_features, label="", training=False, encoder=encoder, lb=lb
     )
     model = train_model(X_train, y_train)
     preds = inference(model, X_test)
