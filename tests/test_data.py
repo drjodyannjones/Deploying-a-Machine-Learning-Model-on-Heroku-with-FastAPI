@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from starter.ml.data import process_data
+from models.data import process_data
 
 
 def test_process_data():

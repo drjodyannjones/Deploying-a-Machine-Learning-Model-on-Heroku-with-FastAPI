@@ -11,7 +11,7 @@ from starter.ml.model import train_model, compute_model_metrics, inference
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 # Add code to load in the data.
-data_path = 'starter/data/census.csv'  # Replace with the path to your data file
+data_path = 'data/census.csv'  # Replace with the path to your data file
 data = pd.read_csv(data_path)
 
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
