@@ -32,6 +32,8 @@ def process_data(df: pd.DataFrame, categorical_features: list, label: str, train
     scaler : sklearn.preprocessing.StandardScaler
         StandardScaler object fitted on the processed data.
     """
+    print("Columns in DataFrame:")
+    print(df.columns)
 
     X = df.drop(label, axis=1)
     y = df[label]
