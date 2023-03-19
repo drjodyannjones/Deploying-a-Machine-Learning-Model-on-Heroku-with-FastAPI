@@ -25,9 +25,9 @@ def process_data(df: pd.DataFrame, categorical_features: list, label: str, train
         Processed data.
     y : numpy.ndarray
         Target variable.
-    le : sklearn.preprocessing.LabelEncoder
+    le : sklearn.preprocessing.LabelEncoder or None
         LabelEncoder object fitted on the target variable.
-    lb : sklearn.preprocessing.LabelBinarizer
+    lb : sklearn.preprocessing.LabelBinarizer or None
         LabelBinarizer object fitted on the target variable.
     scaler : sklearn.preprocessing.StandardScaler
         StandardScaler object fitted on the processed data.
@@ -63,4 +63,3 @@ def process_data(df: pd.DataFrame, categorical_features: list, label: str, train
     X[numerical_features] = scaler.fit_transform(X[numerical_features])
 
     return X.to_numpy(), y, le, lb, scaler
-
