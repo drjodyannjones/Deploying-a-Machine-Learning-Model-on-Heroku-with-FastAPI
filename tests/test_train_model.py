@@ -3,8 +3,8 @@ import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from starter.ml.data import process_data
-from starter.ml.model import train_model, compute_model_metrics, inference
+from models.train_model import process_data
+from models.train_model import train_model, compute_model_metrics, inference
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 def test_process_data():

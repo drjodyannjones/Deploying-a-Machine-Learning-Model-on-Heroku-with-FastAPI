@@ -1,13 +1,14 @@
 # Script to train machine learning model.
 import pandas as pd
+import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from starter.ml.data import process_data
+from models.data import process_data
 import joblib
 import os
 
 # Add the necessary imports for the starter code.
-from starter.ml.model import train_model, compute_model_metrics, inference
+from models.model import train_model, compute_model_metrics, inference
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 # Add code to load in the data.

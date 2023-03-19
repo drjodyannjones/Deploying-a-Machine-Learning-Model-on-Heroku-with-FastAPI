@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
 
 def process_data(df: pd.DataFrame, categorical_features: list, label: str, training: bool=True):
