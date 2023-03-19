@@ -24,7 +24,7 @@ def test_process_data():
     ]
 
     X_train, y_train, encoder, lb = process_data(
-        train, categorical_features=cat_features, label="salary", training=True
+        train, categorical_features=cat_features, label="", training=True
     )
     assert X_train is not None, "X_train not returned"
     assert y_train is not None, "y_train not returned"
