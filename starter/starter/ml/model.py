@@ -75,8 +75,8 @@ def inference(model, X):
 if __name__ == '__main__':
     # Load your data and split it into X_train, y_train, X_test, and y_test here
     data = pd.read_csv("starter/data/census.csv", delimiter=",")
-    X = data[:, :-1]
-    y = data[:, -1]
+    X = data.iloc[:, :-1].values
+    y = data.iloc[:, -1].values
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
