@@ -2,31 +2,19 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
-from starter.ml.data import process_data
-from starter.ml.model import inference
+from models.data import process_data
+from models.train_model import inference
+from config import cat_features, model_path, encoder_path, lb_path
 
 app = FastAPI()
 
-# Load the trained model
-model_path = 'models/model.pkl'
-model = joblib.load(model_path)
+def initialize():
+    model = joblib.load(model_path)
+    encoder = joblib.load(encoder_path)
+    lb = joblib.load(lb_path)
+    return model, encoder, lb
 
-# Load the encoder and label binarizer
-encoder_path = 'models/encoder.pkl'
-lb_path = 'models/label_binarizer.pkl'
-encoder = joblib.load(encoder_path)
-lb = joblib.load(lb_path)
-
-cat_features = [
-    "workclass",
-    "education",
-    "marital-status",
-    "occupation",
-    "relationship",
-    "race",
-    "sex",
-    "native-country",
-]
+model, encoder, lb = initialize()
 
 class InputData(BaseModel):
     age: int
@@ -54,7 +42,7 @@ def predict(input_data: InputData):
     data = pd.DataFrame([dict(input_data)])
 
     # Process the input data with the process_data function
-    X, _, _, _ = process_data(
+    X, _, _, _, _ = process_data(
         data, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
     )
 
