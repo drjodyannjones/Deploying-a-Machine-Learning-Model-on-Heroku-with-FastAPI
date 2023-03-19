@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.model_selection import train_test_split
 
 def train_model(X_train, y_train):
     """
@@ -69,9 +70,14 @@ def inference(model, X):
 
     return preds
 
+
 if __name__ == '__main__':
     # Load your data and split it into X_train, y_train, X_test, and y_test here
-    # ...
+    data = np.loadtxt("data.csv", delimiter=",")
+    X = data[:, :-1]
+    y = data[:, -1]
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
     # Train the model
     model = train_model(X_train, y_train)
