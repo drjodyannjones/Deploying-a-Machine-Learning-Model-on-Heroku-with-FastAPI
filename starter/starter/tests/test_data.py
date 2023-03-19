@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from starter.ml.data import process_data
 
 
