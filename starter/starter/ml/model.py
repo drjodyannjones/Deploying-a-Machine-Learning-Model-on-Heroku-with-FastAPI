@@ -73,7 +73,7 @@ def inference(model, X):
 
 if __name__ == '__main__':
     # Load your data and split it into X_train, y_train, X_test, and y_test here
-    data = np.loadtxt("data.csv", delimiter=",")
+    data = np.loadtxt("starter/data/census.csv", delimiter=",")
     X = data[:, :-1]
     y = data[:, -1]
 
