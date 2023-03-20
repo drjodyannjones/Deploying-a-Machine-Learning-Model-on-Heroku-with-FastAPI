@@ -7,7 +7,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from app.models.data import process_data
-from app.models.train_model import train_model, inference, compute_model_metrics
+# from app.models.train_model import train_model, inference, compute_model_metrics
 import joblib
 import os
 
