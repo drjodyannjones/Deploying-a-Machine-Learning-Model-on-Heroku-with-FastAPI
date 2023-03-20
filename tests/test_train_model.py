@@ -11,6 +11,8 @@ from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 def test_compute_model_metrics():
     data = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'census.csv'))
+    data.columns = data.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('(', '').str.replace(')', '')
+    data = data.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
     train, test = train_test_split(data, test_size=0.20)
 
