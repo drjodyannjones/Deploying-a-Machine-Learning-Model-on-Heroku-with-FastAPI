@@ -12,6 +12,7 @@ import joblib
 import os
 
 # Add the necessary imports for the starter code.
+from model import compute_model_metrics
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 # Add code to load in the data.
