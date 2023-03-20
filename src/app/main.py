@@ -5,14 +5,11 @@ from pydantic import BaseModel
 from models.data import process_data
 from models.train_model import inference
 from config import cat_features, model_path, encoder_path, lb_path
-from src.app.api.endpoints import router as api_router
+from .api.endpoints import router as api_router
 
 app = FastAPI()
 
 app.include_router(api_router)
-
-
-app = FastAPI()
 
 def initialize():
     model = joblib.load(model_path)
