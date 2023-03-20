@@ -3,7 +3,8 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from models.data import process_data
+from ...models.data import process_data
+from ...models.train_model import train_model, inference
 import joblib
 import os
 
