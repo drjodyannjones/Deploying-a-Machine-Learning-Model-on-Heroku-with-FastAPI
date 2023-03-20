@@ -7,17 +7,28 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from app.models.data import process_data
-# from app.models.train_model import train_model, inference, compute_model_metrics
 import joblib
 import os
 
-from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
+from sklearn.metrics import precision_recall_fscore_support
+
+def train_model(X_train, y_train):
+    model = RandomForestClassifier(random_state=42)
+    model.fit(X_train, y_train)
+    return model
+
+def inference(model, X):
+    preds = model.predict(X)
+    return preds
+
+def compute_model_metrics(y_true, y_pred):
+    precision, recall, fbeta, _ = precision_recall_fscore_support(y_true, y_pred, average='weighted')
+    return precision, recall, fbeta
 
 # Add code to load in the data.
 data_path = 'data/census.csv'  # Replace with the path to your data file
 data = pd.read_csv(data_path)
 
-# Optional enhancement, use K-fold cross validation instead of a train-test split.
 train, test = train_test_split(data, test_size=0.20)
 
 cat_features = [
@@ -34,31 +45,23 @@ X_train, y_train, encoder, lb = process_data(
     train, categorical_features=cat_features, label="salary", training=True
 )
 
-# Save the fitted OneHotEncoder
-encoder_path = 'src/app/models/encoder.pkl'  # Replace with the path where you want to save your encoder
+encoder_path = 'src/app/models/encoder.pkl'
 joblib.dump(encoder, encoder_path)
 
-# Save the fitted LabelBinarizer
-lb_path = 'src/app/models/label_binarizer.pkl'  # Replace with the path where you want to save your label binarizer
+lb_path = 'src/app/models/label_binarizer.pkl'
 joblib.dump(lb, lb_path)
 
-
-# Process the test data with the process_data function.
 X_test, y_test, _, _ = process_data(
     test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
 )
 
-# Train and save a model.
 model = train_model(X_train, y_train)
 
-# Save the trained model
-model_path = 'starter/starter/model.pkl'  # Replace with the path where you want to save your model
+model_path = 'src/app/models/model.pkl'  # Updated model path
 joblib.dump(model, model_path)
 
-# Run inference on the test data
 preds = inference(model, X_test)
 
-# Compute model metrics
 precision, recall, fbeta = compute_model_metrics(y_test, preds)
 
 print(f"Precision: {precision}")
