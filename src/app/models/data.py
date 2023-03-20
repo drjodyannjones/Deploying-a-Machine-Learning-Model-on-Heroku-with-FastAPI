@@ -2,74 +2,45 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
 
-def process_data(df: pd.DataFrame, categorical_features: list, label: str, training: bool=True, le=None, lb=None):
+def process_data(df, categorical_features, label, training=True, le=None, lb=None):
     """
-    Preprocess data.
+    Process the input dataset, applying one-hot encoding and scaling.
 
-    Inputs
-    ------
-    df : pandas.DataFrame
-        Data to be processed.
-    categorical_features : list
-        Names of the categorical features.
-    label : str
-        Name of the target variable.
-    training : bool
-        Whether the function is called for training or testing.
-        When True, a new LabelEncoder and LabelBinarizer are fit on the data.
-        When False, they are assumed to be fitted previously.
-    le : sklearn.preprocessing.LabelEncoder, optional
-        Pre-fitted LabelEncoder object.
-    lb : sklearn.preprocessing.LabelBinarizer, optional
-        Pre-fitted LabelBinarizer object.
+    Args:
+        df (pd.DataFrame): The input data.
+        categorical_features (list): The categorical feature columns.
+        label (str): The target column.
+        training (bool): Whether the data is for training or testing.
+        le (LabelEncoder): The pre-fit label encoder (for testing).
+        lb (LabelBinarizer): The pre-fit label binarizer (for testing).
 
-    Returns
-    -------
-    X : numpy.ndarray
-        Processed data.
-    y : numpy.ndarray
-        Target variable.
-    le : sklearn.preprocessing.LabelEncoder or None
-        LabelEncoder object fitted on the target variable.
-    lb : sklearn.preprocessing.LabelBinarizer or None
-        LabelBinarizer object fitted on the target variable.
-    scaler : sklearn.preprocessing.StandardScaler
-        StandardScaler object fitted on the processed data.
+    Returns:
+        pd.DataFrame: The processed data.
     """
-    # Remove leading and trailing spaces from column names
-    df.columns = [col.strip() for col in df.columns]
+    # One-hot encode the categorical features
+    df = pd.get_dummies(df, columns=categorical_features)
 
-    print("Columns in DataFrame:")
-    print(df.columns)
-
-    X = df.drop(label, axis=1)
-    y = df[label]
-
+    # If training, fit the encoders and save them, otherwise, use the provided encoders
     if training:
         le = LabelEncoder()
-        y = le.fit_transform(y)
-
         lb = LabelBinarizer()
-        y = lb.fit_transform(y)
-
+        le.fit(df[label])
+        lb.fit(df[label])
     else:
-        assert le is not None, "LabelEncoder not provided for testing data."
-        assert lb is not None, "LabelBinarizer not provided for testing data."
+        # Ensure that the test dataset has the same number of columns as the training dataset
+        for col in le.classes_:
+            if col not in df.columns:
+                df[col] = 0
 
-        y = le.transform(y)
-        y = lb.transform(y)
+    # Encode the labels
+    y = lb.transform(df[label])
 
-    # Convert categorical variables to one-hot encoded variables
-    for feature in categorical_features:
-        X[feature] = X[feature].astype("category")
+    # Remove the label column
+    df = df.drop(label, axis=1)
 
-    X = pd.get_dummies(X, columns=categorical_features)
-
-    # Scale numerical features
+    # Scale the numerical features
     scaler = StandardScaler()
-    numerical_features = [
-        col for col in X.columns if col not in categorical_features
-    ]
-    X[numerical_features] = scaler.fit_transform(X[numerical_features])
+    df[df.columns] = scaler.fit_transform(df[df.columns])
 
-    return X.to_numpy(), y, le, lb, scaler
+    return df, y, le, lb, scaler
+
