@@ -48,5 +48,3 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
     df_encoded[df_encoded.columns] = scaler.fit_transform(df_encoded[df_encoded.columns])
 
     return df_encoded, y, le, lb, scaler
-
-
