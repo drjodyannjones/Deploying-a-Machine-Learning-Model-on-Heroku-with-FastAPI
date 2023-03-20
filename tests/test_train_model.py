@@ -1,14 +1,18 @@
+import sys
+sys.path.append('src')
+
 import os
 import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from src.app.models.train_model import process_data
-from src.app.models.train_model import train_model, compute_model_metrics, inference
+from app.models.train_model import process_data
+from app.models.train_model import train_model, compute_model_metrics, inference
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 def test_compute_model_metrics():
-    data = pd.read_csv("data/census.csv")
+    data = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'census.csv'))
+
     train, test = train_test_split(data, test_size=0.20)
 
     cat_features = [
