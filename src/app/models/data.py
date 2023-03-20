@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
 
-def process_data(df: pd.DataFrame, categorical_features: list, label: str, training: bool=True):
+def process_data(df: pd.DataFrame, categorical_features: list, label: str, training: bool=True, le=None, lb=None):
     """
     Preprocess data.
 
@@ -18,6 +18,10 @@ def process_data(df: pd.DataFrame, categorical_features: list, label: str, train
         Whether the function is called for training or testing.
         When True, a new LabelEncoder and LabelBinarizer are fit on the data.
         When False, they are assumed to be fitted previously.
+    le : sklearn.preprocessing.LabelEncoder, optional
+        Pre-fitted LabelEncoder object.
+    lb : sklearn.preprocessing.LabelBinarizer, optional
+        Pre-fitted LabelBinarizer object.
 
     Returns
     -------
@@ -46,7 +50,8 @@ def process_data(df: pd.DataFrame, categorical_features: list, label: str, train
         y = lb.fit_transform(y)
 
     else:
-        le, lb = None, None
+        assert le is not None, "LabelEncoder not provided for testing data."
+        assert lb is not None, "LabelBinarizer not provided for testing data."
 
         y = le.transform(y)
         y = lb.transform(y)
