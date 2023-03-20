@@ -36,6 +36,9 @@ def process_data(df: pd.DataFrame, categorical_features: list, label: str, train
     scaler : sklearn.preprocessing.StandardScaler
         StandardScaler object fitted on the processed data.
     """
+    # Remove leading and trailing spaces from column names
+    df.columns = [col.strip() for col in df.columns]
+
     print("Columns in DataFrame:")
     print(df.columns)
 
