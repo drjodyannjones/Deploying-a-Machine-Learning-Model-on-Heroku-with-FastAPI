@@ -4,13 +4,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import precision_recall_fscore_support
 import joblib
 import sys
-import os
 
-# Update the sys.path to include the 'src' directory
 sys.path.append('src')
 
-# Import necessary functions from the main script
-from test_train_model import train_model, inference, compute_model_metrics, process_data
+from app.models.train_model import train_model, inference, compute_model_metrics, CustomTransformer, ColumnTransformer, LabelEncoder
 
 # Load the data
 data_path = 'data/census.csv'
@@ -30,14 +27,24 @@ cat_features = [
 
 train, test = train_test_split(data, test_size=0.20)
 
-# Process the data
-X_train, y_train, ct, lb = process_data(
-    train, categorical_features=cat_features, label="salary", training=True
+# Encode the target variable
+lb = LabelEncoder()
+train['salary'] = lb.fit_transform(train['salary'])
+test['salary'] = lb.transform(test['salary'])
+
+# Define column transformer
+ct = ColumnTransformer(
+    transformers=[('cat', CustomTransformer(), cat_features)],
+    remainder='passthrough'
 )
 
-X_test, y_test, _, _ = process_data(
-    test, categorical_features=cat_features, label="salary", training=False, ct=ct, lb=lb
-)
+# Fit and transform the training data
+X_train = ct.fit_transform(train.drop('salary', axis=1))
+y_train = train['salary'].values
+
+# Transform the test data
+X_test = ct.transform(test.drop('salary', axis=1))
+y_test = test['salary'].values
 
 # Train the model
 model = train_model(X_train, y_train)
