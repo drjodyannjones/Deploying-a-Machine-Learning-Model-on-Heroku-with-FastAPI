@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from models.train_model import process_data
+from src.app.models.train_model import process_data
 from models.train_model import train_model, compute_model_metrics, inference
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
