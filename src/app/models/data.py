@@ -18,7 +18,17 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
         pd.DataFrame: The processed data.
     """
     # One-hot encode the categorical features
-    df = pd.get_dummies(df, columns=categorical_features)
+    if training:
+        df_encoded = pd.get_dummies(df, columns=categorical_features)
+        one_hot_columns = df_encoded.columns
+    else:
+        one_hot_columns = le.classes_
+        df_encoded = pd.get_dummies(df, columns=categorical_features)
+        for col in one_hot_columns:
+            if col not in df_encoded.columns:
+                df_encoded[col] = 0
+
+        df_encoded = df_encoded[one_hot_columns]
 
     # If training, fit the encoders and save them, otherwise, use the provided encoders
     if training:
@@ -26,21 +36,17 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
         lb = LabelBinarizer()
         le.fit(df[label])
         lb.fit(df[label])
-    else:
-        # Ensure that the test dataset has the same number of columns as the training dataset
-        for col in le.classes_:
-            if col not in df.columns:
-                df[col] = 0
 
     # Encode the labels
     y = lb.transform(df[label])
 
     # Remove the label column
-    df = df.drop(label, axis=1)
+    df_encoded = df_encoded.drop(label, axis=1)
 
     # Scale the numerical features
     scaler = StandardScaler()
-    df[df.columns] = scaler.fit_transform(df[df.columns])
+    df_encoded[df_encoded.columns] = scaler.fit_transform(df_encoded[df_encoded.columns])
 
-    return df, y, le, lb, scaler
+    return df_encoded, y, le, lb, scaler
+
 
