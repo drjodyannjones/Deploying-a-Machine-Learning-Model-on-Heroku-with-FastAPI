@@ -10,7 +10,10 @@ from app.models.train_model import process_data, train_model, compute_model_metr
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 def test_compute_model_metrics():
-    data = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'census.csv'))
+    data_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'census.csv')
+    data = pd.read_csv(data_path, delimiter=',', engine='python')
+
+    # Remove extra spaces from the column names and data
     data.columns = data.columns.str.strip().str.lower().str.replace(' ', '_').str.replace('(', '').str.replace(')', '')
     data = data.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
@@ -19,12 +22,12 @@ def test_compute_model_metrics():
     cat_features = [
         "workclass",
         "education",
-        "marital-status",
+        "marital_status",
         "occupation",
         "relationship",
         "race",
         "sex",
-        "native-country",
+        "native_country",
     ]
 
     X_train, y_train, encoder, lb = process_data(
