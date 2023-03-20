@@ -59,3 +59,5 @@ if __name__ == '__main__':
         print(f"\n{category}:")
         for metric, value in metrics.items():
             print(f"  {metric}: {value:.4f}")
+    with open('slice_open.txt', 'w') as f:  # open file in write mode
+        f.write(str(slice_performance))
