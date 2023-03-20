@@ -25,8 +25,8 @@ def performance_on_slices(model: RandomForestClassifier, X_test: np.array, y_tes
 
     for category in unique_categories:
         mask = test_df[categorical_feature] == category
-        X_test_slice = X_test[mask]
-        y_test_slice = y_test[mask]
+        X_test_slice = X_test[mask.values]
+        y_test_slice = y_test[mask.values]
 
         if len(X_test_slice) > 0:
             preds = inference(model, X_test_slice)
@@ -48,9 +48,9 @@ if __name__ == '__main__':
     preds = inference(model, X_test)
     precision, recall, f1 = compute_model_metrics(y_test, preds)
 
-    print(f"Precision: {precision}")
-    print(f"Recall: {recall}")
-    print(f"F1 Score: {f1}")
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall: {recall:.4f}")
+    print(f"F1 Score: {f1:.4f}")
 
     # Performance on slices of the test DataFrame
     slice_performance = performance_on_slices(model, X_test, y_test, test_df, 'education')
