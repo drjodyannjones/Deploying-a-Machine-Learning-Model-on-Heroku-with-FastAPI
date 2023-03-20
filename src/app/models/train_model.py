@@ -51,8 +51,8 @@ joblib.dump(encoder, encoder_path)
 lb_path = 'src/app/models/label_binarizer.pkl'
 joblib.dump(lb, lb_path)
 
-X_test, y_test, _, _ = process_data(
-    test, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+X_test, y_test, _, _, _ = process_data(
+    test, categorical_features=cat_features, label="salary", training=False, le=encoder, lb=lb
 )
 
 model = train_model(X_train, y_train)
