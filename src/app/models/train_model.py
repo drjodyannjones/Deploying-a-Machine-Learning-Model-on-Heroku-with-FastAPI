@@ -1,15 +1,17 @@
 # Script to train machine learning model.
+import sys
+sys.path.append('src')
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from ..models.data import process_data
-from ..models.train_model import train_model, inference
+from app.models.data import process_data
+from app.models.train_model import train_model, inference
 import joblib
 import os
 
 # Add the necessary imports for the starter code.
-from models.model import train_model, compute_model_metrics, inference
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 # Add code to load in the data.
