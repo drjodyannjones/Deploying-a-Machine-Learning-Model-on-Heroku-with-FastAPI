@@ -7,12 +7,10 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from app.models.data import process_data
-from app.models.train_model import train_model, inference
+from app.models.train_model import train_model, inference, compute_model_metrics
 import joblib
 import os
 
-# Add the necessary imports for the starter code.
-from model import compute_model_metrics
 from sklearn.preprocessing import OneHotEncoder, LabelBinarizer
 
 # Add code to load in the data.
@@ -37,12 +35,13 @@ X_train, y_train, encoder, lb = process_data(
 )
 
 # Save the fitted OneHotEncoder
-encoder_path = 'starter/starter/encoder.pkl'  # Replace with the path where you want to save your encoder
+encoder_path = 'src/app/models/encoder.pkl'  # Replace with the path where you want to save your encoder
 joblib.dump(encoder, encoder_path)
 
 # Save the fitted LabelBinarizer
-lb_path = 'starter/starter/label_binarizer.pkl'  # Replace with the path where you want to save your label binarizer
+lb_path = 'src/app/models/label_binarizer.pkl'  # Replace with the path where you want to save your label binarizer
 joblib.dump(lb, lb_path)
+
 
 # Process the test data with the process_data function.
 X_test, y_test, _, _ = process_data(
