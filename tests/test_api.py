@@ -1,3 +1,4 @@
+import os
 import json
 from fastapi.testclient import TestClient
 from src.app.main import app
