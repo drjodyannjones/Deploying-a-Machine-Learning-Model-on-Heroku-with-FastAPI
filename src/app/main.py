@@ -1,3 +1,6 @@
+import sys
+sys.path.append("src/app/")
+
 import joblib
 import pandas as pd
 from fastapi import FastAPI
