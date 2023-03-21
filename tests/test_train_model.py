@@ -7,7 +7,7 @@ import sys
 
 sys.path.append('src')
 
-from app.models.train_model import train_model, inference, compute_model_metrics, CustomTransformer, ColumnTransformer, LabelEncoder
+from src.app.models.train_model import train_model, inference, compute_model_metrics, CustomTransformer, ColumnTransformer, LabelEncoder
 
 # Load the data
 data_path = 'data/census.csv'
