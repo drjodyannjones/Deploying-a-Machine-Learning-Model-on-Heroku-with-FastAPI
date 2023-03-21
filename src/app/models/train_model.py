@@ -32,18 +32,35 @@ class CustomTransformer(BaseEstimator, TransformerMixin):
         X_encoded = self.encoder.transform(X_imputed)
         return X_encoded
 
+
 def train_model(X_train, y_train):
     model = RandomForestClassifier(random_state=42)
     model.fit(X_train, y_train)
     return model
 
+
 def inference(model, X):
     preds = model.predict(X)
     return preds
 
+
 def compute_model_metrics(y_true, y_pred):
     precision, recall, fbeta, _ = precision_recall_fscore_support(y_true, y_pred, average='weighted')
     return precision, recall, fbeta
+
+
+def compute_slice_performance(data, feature, model):
+    unique_values = data[feature].unique()
+    metrics = []
+    for value in unique_values:
+        df_slice = data[data[feature] == value]
+        X_slice = ct.transform(df_slice.drop('salary', axis=1))
+        y_slice = df_slice['salary'].values
+        preds = inference(model, X_slice)
+        precision, recall, fbeta = compute_model_metrics(y_slice, preds)
+        metrics.append((feature, value, precision, recall, fbeta))
+    return metrics
+
 
 # Add code to load in the data.
 data_path = 'data/census.csv'  # Replace with the path to your data file
@@ -85,6 +102,18 @@ y_test = test['salary'].values
 # Train the model
 model = train_model(X_train, y_train)
 
+# Compute slice performance for all categorical features
+all_slice_performance = []
+for feature in cat_features:
+    feature_slice_performance = compute_slice_performance(test, feature, model)
+    all_slice_performance.extend(feature_slice_performance)
+
+# Save the slice performance output to a file
+with open('slice_output.txt', 'w') as f:
+    for metric in all_slice_performance:
+        f.write(f"{metric}\n")
+
+
 # Save the column transformer and label encoder
 ct_path = 'src/app/models/column_transformer.pkl'
 joblib.dump(ct, ct_path)
@@ -93,15 +122,4 @@ lb_path = 'src/app/models/label_binarizer.pkl'
 joblib.dump(lb, lb_path)
 
 # Save the trained model
-model_path = 'src/app/models/model.pkl'  # Updated model path
-joblib.dump(model, model_path)
-
-# Inference
-preds = inference(model, X_test)
-
-# Compute model metrics
-precision, recall, fbeta = compute_model_metrics(y_test, preds)
-
-print(f"Precision: {precision}")
-print(f"Recall: {recall}")
-print(f"F1 Score: {fbeta}")
+model_path = 'src/app/models/model.pkl'
