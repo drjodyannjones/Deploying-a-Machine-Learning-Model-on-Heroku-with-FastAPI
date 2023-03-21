@@ -1,3 +1,4 @@
+import joblib
 from fastapi import APIRouter, Depends
 import pandas as pd
 from pydantic import BaseModel
