@@ -1,14 +1,14 @@
 import sys
-sys.path.append("src/app/")
+sys.path.append("src/app")
 
 import joblib
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
-from src.app.models.data import process_data
-from src.app.models.train_model import inference
-from src.app.config import cat_features, model_path, encoder_path, lb_path
-from src.app.api.endpoints import router as api_router
+from models.data import process_data
+from models.train_model import inference
+from config import cat_features, model_path, encoder_path, lb_path
+from api.endpoints import router as api_router
 from config import cat_features, model_path, encoder_path, lb_path
 
 

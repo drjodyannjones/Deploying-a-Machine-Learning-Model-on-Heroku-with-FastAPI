@@ -1,10 +1,13 @@
+import sys
+sys.path.append("src/app")
+
 import joblib
 from fastapi import APIRouter, Depends
 import pandas as pd
 from pydantic import BaseModel
-from ..models.data import process_data
-from ..models.train_model import inference
-from ..utils.utils import load_model, load_encoder, load_label_binarizer
+from models.data import process_data
+from models.train_model import inference
+from utils.utils import load_model, load_encoder, load_label_binarizer
 
 router = APIRouter()
 

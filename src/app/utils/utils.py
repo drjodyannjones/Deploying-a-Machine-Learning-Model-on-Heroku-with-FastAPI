@@ -2,9 +2,9 @@ import joblib
 from fastapi import Depends
 from functools import lru_cache
 
-model_path = 'models/model.pkl'
-encoder_path = 'models/encoder.pkl'
-lb_path = 'models/label_binarizer.pkl'
+model_path = 'src/app/models/model.pkl'
+encoder_path = 'src/app/models/encoder.pkl'
+lb_path = 'src/app/models/label_binarizer.pkl'
 
 @lru_cache
 def load_model():
