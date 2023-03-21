@@ -30,7 +30,7 @@ def test_process_data():
         "native-country",
     ]
 
-    X_train, y_train, encoder, lb = process_data(
+    X_train, y_train, encoder, lb, scaler, output_columns = process_data(
         data, categorical_features=cat_features, label="salary", training=True
     )
 
@@ -38,3 +38,4 @@ def test_process_data():
     assert y_train.shape == (2,), "Labels shape mismatch"
     assert encoder is not None, "Encoder not returned"
     assert lb is not None, "Label Binarizer not returned"
+    assert output_columns is not None, "Output columns not returned"
