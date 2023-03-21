@@ -2,7 +2,15 @@
 
 ## Model Details
 
-Model: RandomForestClassifier Training Library: scikit-learn Random State: 42 Intended Use This model is intended for the prediction of salary classes (above or below a certain threshold, e.g., 50K) based on various demographic and job-related features collected from the U.S. Census data.
+### Intended Use
+
+This model is intended for the prediction of salary classes (above or below a certain threshold, e.g., 50K) based on various demographic and job-related features collected from the U.S. Census data.
+
+### Selected Model
+
+- Model: RandomForestClassifier
+- Training Library: scikit-learn
+- Random State: 42
 
 ## Training Data
 
@@ -16,7 +24,9 @@ The evaluation data is also sourced from the U.S. Census data, with an 80-20 tra
 
 The primary metrics used to evaluate the model's performance are weighted precision, recall, and F1 score. The model's performance on these metrics after training and evaluation is as follows:
 
-Precision: 0.7655 Recall: 0.6378 F1 Score: 0.6958
+- Precision: 0.7655
+- Recall: 0.6378
+- F1 Score: 0.6958
 
 ## Ethical Considerations
 
