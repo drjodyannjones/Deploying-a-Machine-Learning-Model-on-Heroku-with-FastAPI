@@ -6,7 +6,7 @@ from src.app.models.data import process_data
 from src.app.models.train_model import inference
 from src.app.config import cat_features, model_path, encoder_path, lb_path
 from src.app.api.endpoints import router as api_router
-from .config import cat_features, model_path, encoder_path, lb_path
+from config import cat_features, model_path, encoder_path, lb_path
 
 
 app = FastAPI()
