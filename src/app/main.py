@@ -2,10 +2,12 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
-from models.data import process_data
-from models.train_model import inference
-from config import cat_features, model_path, encoder_path, lb_path
-from .api.endpoints import router as api_router
+from src.app.models.data import process_data
+from src.app.models.train_model import inference
+from src.app.config import cat_features, model_path, encoder_path, lb_path
+from src.app.api.endpoints import router as api_router
+from .config import cat_features, model_path, encoder_path, lb_path
+
 
 app = FastAPI()
 
@@ -34,6 +36,26 @@ class InputData(BaseModel):
     capital_loss: int
     hours_per_week: int
     native_country: str
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "age": 39,
+                "workclass": "State-gov",
+                "fnlwgt": 77516,
+                "education": "Bachelors",
+                "education_num": 13,
+                "marital_status": "Never-married",
+                "occupation": "Adm-clerical",
+                "relationship": "Not-in-family",
+                "race": "White",
+                "sex": "Male",
+                "capital_gain": 2174,
+                "capital_loss": 0,
+                "hours_per_week": 40,
+                "native_country": "United-States",
+            }
+        }
 
 @app.get("/")
 def welcome():
