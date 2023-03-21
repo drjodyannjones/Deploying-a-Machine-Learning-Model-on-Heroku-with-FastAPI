@@ -79,3 +79,5 @@ if __name__ == '__main__':
     precision, recall, f1 = compute_model_metrics(y_test, preds)
 
     print(f"Precision: {precision:.4f}")
+    print(f"Recall: {recall:.4f}")
+    print(f"F1: {f1:.4f}")
