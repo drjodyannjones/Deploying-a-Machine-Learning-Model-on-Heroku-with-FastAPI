@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
 
-def process_data(df, categorical_features, label, training=True, le=None, lb=None):
+def process_data(df, categorical_features, label, training=True, encoder=None, lb=None):
     """
     Process the input dataset, applying one-hot encoding and scaling.
 
@@ -11,7 +11,7 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
         categorical_features (list): The categorical feature columns.
         label (str): The target column.
         training (bool): Whether the data is for training or testing.
-        le (LabelEncoder): The pre-fit label encoder (for testing).
+        encoder (LabelEncoder): The pre-fit label encoder (for testing).
         lb (LabelBinarizer): The pre-fit label binarizer (for testing).
 
     Returns:
@@ -22,7 +22,7 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
         df_encoded = pd.get_dummies(df, columns=categorical_features)
         one_hot_columns = df_encoded.columns
     else:
-        one_hot_columns = le.classes_
+        one_hot_columns = encoder.classes_
         df_encoded = pd.get_dummies(df, columns=categorical_features)
         for col in one_hot_columns:
             if col not in df_encoded.columns:
@@ -32,9 +32,9 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
 
     # If training, fit the encoders and save them, otherwise, use the provided encoders
     if training:
-        le = LabelEncoder()
+        encoder = LabelEncoder()
         lb = LabelBinarizer()
-        le.fit(df[label])
+        encoder.fit(df[label])
         lb.fit(df[label])
 
     # Encode the labels
@@ -47,4 +47,4 @@ def process_data(df, categorical_features, label, training=True, le=None, lb=Non
     scaler = StandardScaler()
     df_encoded[df_encoded.columns] = scaler.fit_transform(df_encoded[df_encoded.columns])
 
-    return df_encoded, y, le, lb, scaler
+    return df_encoded, y, encoder, lb, scaler
