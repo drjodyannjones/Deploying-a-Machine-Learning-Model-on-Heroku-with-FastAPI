@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
+from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler, OneHotEncoder
 
 from typing import List, Tuple, Optional, Union
 
