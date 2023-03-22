@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 from src.app.models.data import process_data # Import the process_data function from data.py
 
 root_path = os.getcwd()
-cat_features = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country']
+cat_features = ['workclass', 'education', 'marital_status', 'occupation', 'relationship', 'race', 'sex', 'native_country']
 
 def train_model(X_train: np.array, y_train: np.array) -> RandomForestClassifier:
     model = RandomForestClassifier(n_estimators=100, random_state=42)
