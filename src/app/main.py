@@ -9,7 +9,8 @@ from models.data import process_data
 from models.train_model import inference
 from config import cat_features, model_path, encoder_path, lb_path
 from api.endpoints import router as api_router
-from config import cat_features, model_path, encoder_path, lb_path
+from config import cat_features, model_path, encoder_path, lb_path, scaler_path
+
 
 
 app = FastAPI()
@@ -20,6 +21,7 @@ def initialize():
     model = joblib.load(model_path)
     encoder = joblib.load(encoder_path)
     lb = joblib.load(lb_path)
+    scaler = joblib.load(scaler_path)
     return model, encoder, lb
 
 model, encoder, lb = initialize()
@@ -71,7 +73,7 @@ def predict(input_data: InputData):
 
     # Process the input data with the process_data function
     X, _, _, _, _, _ = process_data(
-        data, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
+        data, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb, scaler=scaler
     )
 
     # Run inference on the processed data

@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder, StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -86,8 +86,14 @@ train['salary'] = lb.fit_transform(train['salary'])
 test['salary'] = lb.transform(test['salary'])
 
 # Define column transformer
+
+num_features = ["age", "fnlwgt", "education_num", "capital_gain", "capital_loss", "hours_per_week"]
+
 ct = ColumnTransformer(
-    transformers=[('cat', CustomTransformer(), cat_features)],
+    transformers=[
+        ('cat', CustomTransformer(), cat_features),
+        ('num', StandardScaler(), num_features)
+    ],
     remainder='passthrough'
 )
 
@@ -117,6 +123,10 @@ with open('slice_output.txt', 'w') as f:
 # Save the column transformer and label encoder
 ct_path = 'src/app/models/column_transformer.pkl'
 joblib.dump(ct, ct_path)
+
+scaler = ct.named_transformers_['num']  # Get the scaler from the ColumnTransformer
+scaler_path = 'src/app/models/scaler.pkl'  # Define the path for the scaler
+joblib.dump(scaler, scaler_path)  # Save the scaler to a pickle file
 
 lb_path = 'src/app/models/label_binarizer.pkl'
 joblib.dump(lb, lb_path)

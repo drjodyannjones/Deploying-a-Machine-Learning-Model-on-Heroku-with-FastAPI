@@ -16,4 +16,5 @@ cat_features = [
 
 model_path = os.path.join(BASE_DIR, "models", "model.pkl")
 encoder_path = os.path.join(MODELS_DIR, "encoder.pkl")
+scaler_path = os.path.join(MODELS_DIR, "scaler.pkl")
 lb_path = os.path.join(MODELS_DIR, "label_binarizer.pkl")
