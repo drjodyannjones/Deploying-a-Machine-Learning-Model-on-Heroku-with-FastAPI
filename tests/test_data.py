@@ -11,7 +11,7 @@ def test_process_data():
         "fnlwgt": 121772,
         "education": "Assoc-voc",
         "education_num": 11,
-        "marital-status": "Married-civ-spouse",
+        "marital_status": "Married-civ-spouse",
         "occupation": "Craft-repair",
         "relationship": "Husband",
         "race": "Asian-Pac-Islander",
@@ -19,19 +19,19 @@ def test_process_data():
         "capital_gain": 7298,
         "capital_loss": 0,
         "hours_per_week": 40,
-        "native-country": "United-States"
+        "native_country": "United-States"
     })
 
     # Define categorical features
     cat_features = [
         "workclass",
         "education",
-        "marital-status",
+        "marital_status",
         "occupation",
         "relationship",
         "race",
         "sex",
-        "native-country",
+        "native_country",
     ]
 
     X_train, y_train, encoder, lb, scaler, output_columns = process_data(
