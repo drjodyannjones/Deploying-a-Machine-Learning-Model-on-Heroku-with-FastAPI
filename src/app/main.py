@@ -70,7 +70,7 @@ def predict(input_data: InputData):
     data = pd.DataFrame([dict(input_data)])
 
     # Process the input data with the process_data function
-    X, _, _, _, _ = process_data(
+    X, _, _, _, _, _ = process_data(
         data, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb
     )
 
@@ -81,3 +81,4 @@ def predict(input_data: InputData):
     prediction = lb.inverse_transform(preds)[0]
 
     return {"prediction": prediction}
+
