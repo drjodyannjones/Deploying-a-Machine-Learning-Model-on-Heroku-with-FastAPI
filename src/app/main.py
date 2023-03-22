@@ -74,10 +74,10 @@ def predict(input_data: InputData):
     X, _, _, _, _, _ = process_data(
         data,
         categorical_features=cat_features,
-        label="salary",
+        label=None,  # Pass None as label
         training=False,
         encoder=encoder,
-        lb=lb,
+        lb=lb,  # Pass the pre-trained lb
         scaler=scaler
     )
 
@@ -88,4 +88,5 @@ def predict(input_data: InputData):
     prediction = lb.inverse_transform(preds)[0]
 
     return {"prediction": prediction}
+
 

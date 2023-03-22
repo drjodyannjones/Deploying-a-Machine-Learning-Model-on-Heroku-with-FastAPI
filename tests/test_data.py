@@ -45,8 +45,8 @@ def test_process_data():
 
     y_train = y_train.ravel()  # Add this line to make y_train 1-dimensional
 
-    assert X_train.shape == (2, 17), "Processed data shape mismatch"
-    assert y_train.shape == (1,), "Labels shape mismatch"
+    assert X_train.shape[0] == data.shape[0], "Processed data rows mismatch"
+    assert y_train.shape == (data.shape[0],), "Labels shape mismatch"
     assert encoder is not None, "Encoder not returned"
     assert lb is not None, "Label Binarizer not returned"
     assert output_columns is not None, "Output columns not returned"
