@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
 
-def process_data(df, categorical_features, label, training=True, encoder=None, lb=None):
+def process_data(df, categorical_features, label, training=True, encoder=None, lb=None, scaler=None):
     """
     Process the input dataset, applying one-hot encoding and scaling.
 
@@ -13,9 +13,15 @@ def process_data(df, categorical_features, label, training=True, encoder=None, l
         training (bool): Whether the data is for training or testing.
         encoder (LabelEncoder): The pre-fit label encoder (for testing).
         lb (LabelBinarizer): The pre-fit label binarizer (for testing).
+        scaler (StandardScaler): The pre-fit scaler (for testing).
 
     Returns:
         pd.DataFrame: The processed data.
+        np.array: The target labels.
+        LabelEncoder: The label encoder.
+        LabelBinarizer: The label binarizer.
+        StandardScaler: The scaler.
+        List[str]: The column names after one-hot encoding.
     """
     # One-hot encode the categorical features
     if training:
@@ -44,7 +50,11 @@ def process_data(df, categorical_features, label, training=True, encoder=None, l
     df_encoded = df_encoded.drop(label, axis=1)
 
     # Scale the numerical features
-    scaler = StandardScaler()
-    df_encoded[df_encoded.columns] = scaler.fit_transform(df_encoded[df_encoded.columns])
+    if training:
+        scaler = StandardScaler()
+        df_encoded[df_encoded.columns] = scaler.fit_transform(df_encoded[df_encoded.columns])
+    else:
+        df_encoded[df_encoded.columns] = scaler.transform(df_encoded[df_encoded.columns])
 
-    return df_encoded, y, encoder, lb, scaler
+    return df_encoded, y, encoder, lb, scaler, one_hot_columns
+
