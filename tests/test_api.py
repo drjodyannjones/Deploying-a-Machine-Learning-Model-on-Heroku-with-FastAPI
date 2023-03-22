@@ -14,7 +14,7 @@ def test_predict_above_50k() -> None:
     input_data = {
         "age": 40,
         "workclass": "Private",
-        "fnlwgt": 121772,
+        "fnlgt": 121772,
         "education": "Assoc-voc",
         "education_num": 11,
         "marital_status": "Married-civ-spouse",
