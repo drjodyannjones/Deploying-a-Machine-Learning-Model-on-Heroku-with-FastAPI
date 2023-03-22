@@ -36,7 +36,7 @@ def test_process_data():
     ]
 
     X_train, y_train, encoder, lb, scaler, output_columns = process_data(
-        data, categorical_features=cat_features, label="salary", training=True)
+        data, categorical_features=cat_features, label="None", training=True)
 
     y_train = y_train.ravel()  # Add this line to make y_train 1-dimensional
 
