@@ -14,7 +14,7 @@ cat_features = [
     "native_country",
 ]
 
-model_path = os.path.join(BASE_DIR, "models", "model.pkl")
-encoder_path = os.path.join(MODELS_DIR, "encoder.pkl")
+model_path = os.path.join(MODELS_DIR, "model.pkl")
+ct_path = os.path.join(MODELS_DIR, "column_transformer.pkl")
 scaler_path = os.path.join(MODELS_DIR, "scaler.pkl")
 lb_path = os.path.join(MODELS_DIR, "label_binarizer.pkl")

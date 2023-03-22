@@ -8,7 +8,8 @@ from pydantic import BaseModel
 from models.data import process_data
 from models.train_model import inference
 from api.endpoints import router as api_router
-from config import cat_features, model_path, encoder_path, lb_path, scaler_path
+from config import cat_features, model_path, ct_path, lb_path, scaler_path
+
 
 
 
@@ -18,10 +19,12 @@ app.include_router(api_router)
 
 def initialize():
     model = joblib.load(model_path)
-    encoder = joblib.load(encoder_path)
+    ct = joblib.load(ct_path)  # Load the column transformer
+    encoder = ct.named_transformers_['cat'].encoder  # Get the OneHotEncoder from the column transformer
     lb = joblib.load(lb_path)
     scaler = joblib.load(scaler_path)
     return model, encoder, lb, scaler
+
 
 model, encoder, lb, scaler = initialize()
 
