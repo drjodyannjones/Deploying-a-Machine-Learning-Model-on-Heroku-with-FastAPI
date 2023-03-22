@@ -6,12 +6,12 @@ MODELS_DIR = os.path.join(BASE_DIR, "models")
 cat_features = [
     "workclass",
     "education",
-    "marital_status",
+    "marital-status",
     "occupation",
     "relationship",
     "race",
     "sex",
-    "native_country",
+    "native-country",
 ]
 
 model_path = os.path.join(BASE_DIR, "models", "model.pkl")
