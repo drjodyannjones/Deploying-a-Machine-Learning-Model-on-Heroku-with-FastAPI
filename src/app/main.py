@@ -48,7 +48,7 @@ class InputData(BaseModel):
                 "fnlwgt": 77516,
                 "education": "Bachelors",
                 "education_num": 13,
-                "marital_status": "Never-married",
+                "marital-status": "Never-married",
                 "occupation": "Adm-clerical",
                 "relationship": "Not-in-family",
                 "race": "White",
@@ -56,7 +56,7 @@ class InputData(BaseModel):
                 "capital_gain": 2174,
                 "capital_loss": 0,
                 "hours_per_week": 40,
-                "native_country": "United-States",
+                "native-country": "United-States",
             }
         }
 
