@@ -8,22 +8,23 @@ from app.main import scaler
 def test_process_data():
     # Load sample data for testing
     data = pd.DataFrame({
-    "age": [40, 25],
-    "workclass": ["Private", "Self-emp-not-inc"],
-    "fnlgt": [121772, 226802],
-    "education": ["Assoc-voc", "11th"],
-    "education_num": [11, 7],
-    "marital_status": ["Married-civ-spouse", "Never-married"],
-    "occupation": ["Craft-repair", "Machine-op-inspct"],
-    "relationship": ["Husband", "Own-child"],
-    "race": ["Asian-Pac-Islander", "Black"],
-    "sex": ["Male", "Female"],
-    "capital_gain": [7298, 0],
-    "capital_loss": [0, 0],
-    "hours_per_week": [40, 40],
-    "native_country": ["United-States", "United-States"],
-    "salary": [">50K", "<=50K"]
+    "age": [40, 25, 30],
+    "workclass": ["Private", "State-gov", "Self-emp-inc"],
+    "fnlgt": [121772, 226802, 150000],
+    "education": ["Assoc-voc", "11th", "Bachelors"],
+    "education_num": [11, 7, 13],
+    "marital_status": ["Married-civ-spouse", "Never-married", "Divorced"],
+    "occupation": ["Craft-repair", "Machine-op-inspct", "Exec-managerial"],
+    "relationship": ["Husband", "Own-child", "Not-in-family"],
+    "race": ["Asian-Pac-Islander", "Black", "White"],
+    "sex": ["Male", "Male", "Female"],
+    "capital_gain": [7298, 0, 0],
+    "capital_loss": [0, 0, 0],
+    "hours_per_week": [40, 40, 50],
+    "native_country": ["United-States", "United-States", "United-States"],
+    "salary": [">50K", "<=50K", ">50K"]
 })
+
 
 
 
