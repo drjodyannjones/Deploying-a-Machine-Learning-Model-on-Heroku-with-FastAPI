@@ -1,8 +1,8 @@
 import os
 from typing import Dict
 from fastapi.testclient import TestClient
-from src.app.main import app
-from app.main import scaler
+from app.main import app
+from app.main import scaler, encoder, lb
 
 
 client = TestClient(app)
