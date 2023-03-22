@@ -25,7 +25,7 @@ cat_features = [
 class InputData(BaseModel):
     age: int
     workclass: str
-    fnlwgt: int
+    fnlgt: int
     education: str
     education_num: int
     marital_status: str
