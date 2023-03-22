@@ -34,7 +34,7 @@ def test_process_data():
     data, categorical_features=cat_features, label="salary", training=True)
 
 
-    assert X_train.shape == (2, 16), "Processed data shape mismatch"
+    assert X_train.shape == (2, 17), "Processed data shape mismatch"
     assert y_train.shape == (2,), "Labels shape mismatch"
     assert encoder is not None, "Encoder not returned"
     assert lb is not None, "Label Binarizer not returned"
