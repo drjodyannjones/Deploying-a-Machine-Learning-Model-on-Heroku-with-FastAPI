@@ -27,7 +27,8 @@ def test_predict_above_50k() -> None:
         "capital_gain": 7298,
         "capital_loss": 0,
         "hours_per_week": 40,
-        "native_country": "United-States"
+        "native_country": "United-States",
+        "salary": ">50K"
     }
     response = client.post("/predict", json=input_data)
     print(response.content)
@@ -49,7 +50,8 @@ def test_predict_below_50k() -> None:
         "capital_gain": 0,
         "capital_loss": 0,
         "hours_per_week": 40,
-        "native_country": "United-States"
+        "native_country": "United-States",
+        "salary": "<=50K"
     }
     response = client.post("/predict", json=input_data)
     print(response.content)
