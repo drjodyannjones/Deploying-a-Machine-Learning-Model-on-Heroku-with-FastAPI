@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 from src.app.models.data import process_data
+from app.main import scaler
+
 
 
 def test_process_data():
