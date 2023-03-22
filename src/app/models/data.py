@@ -2,7 +2,17 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler
 
-def process_data(df, categorical_features, label, training=True, encoder=None, lb=None, scaler=None):
+from typing import List, Tuple, Optional, Union
+
+def process_data(
+    df: pd.DataFrame,
+    categorical_features: List[str],
+    label: str,
+    training: bool = True,
+    encoder: Optional[LabelEncoder] = None,
+    lb: Optional[LabelBinarizer] = None,
+    scaler: Optional[StandardScaler] = None
+) -> Tuple[pd.DataFrame, np.array, LabelEncoder, LabelBinarizer, StandardScaler, List[str]]:
     """
     Process the input dataset, applying one-hot encoding and scaling.
 
