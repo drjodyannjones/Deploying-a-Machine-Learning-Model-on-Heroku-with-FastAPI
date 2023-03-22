@@ -7,12 +7,12 @@ from typing import List, Tuple, Optional, Union
 def process_data(
     df: pd.DataFrame,
     categorical_features: List[str],
-    label: str,
+    label: Optional[str] = None,
     training: bool = True,
-    encoder: Optional[LabelEncoder] = None,
+    encoder: Optional[OneHotEncoder] = None,
     lb: Optional[LabelBinarizer] = None,
-    scaler: Optional[StandardScaler] = None
-) -> Tuple[pd.DataFrame, np.array, LabelEncoder, LabelBinarizer, StandardScaler, List[str]]: # type: ignore
+) -> Tuple[pd.DataFrame, pd.Series, OneHotEncoder, LabelBinarizer]:
+
     """
     Process the input dataset, applying one-hot encoding and scaling.
 
