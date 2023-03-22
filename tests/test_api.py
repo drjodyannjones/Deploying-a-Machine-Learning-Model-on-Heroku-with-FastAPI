@@ -1,17 +1,17 @@
 import os
-import json
+from typing import Dict
 from fastapi.testclient import TestClient
 from src.app.main import app
 
 client = TestClient(app)
 
-def test_welcome():
+def test_welcome() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the salary prediction API"}
 
-def test_predict_above_50k():
-    input_data = {
+def test_predict_above_50k() -> None:
+    input_data: Dict[str, Union[str, int]] = {
         "age": 40,
         "workclass": "Private",
         "fnlwgt": 121772,
@@ -31,8 +31,8 @@ def test_predict_above_50k():
     assert response.status_code == 200
     assert response.json() == {"prediction": ">50K"}
 
-def test_predict_below_50k():
-    input_data = {
+def test_predict_below_50k() -> None:
+    input_data: Dict[str, Union[str, int]] = {
         "age": 25,
         "workclass": "Private",
         "fnlwgt": 226802,

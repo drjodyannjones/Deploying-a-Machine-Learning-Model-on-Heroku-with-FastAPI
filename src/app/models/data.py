@@ -12,7 +12,7 @@ def process_data(
     encoder: Optional[LabelEncoder] = None,
     lb: Optional[LabelBinarizer] = None,
     scaler: Optional[StandardScaler] = None
-) -> Tuple[pd.DataFrame, np.array, LabelEncoder, LabelBinarizer, StandardScaler, List[str]]:
+) -> Tuple[pd.DataFrame, np.array, LabelEncoder, LabelBinarizer, StandardScaler, List[str]]: # type: ignore
     """
     Process the input dataset, applying one-hot encoding and scaling.
 
@@ -66,5 +66,5 @@ def process_data(
     else:
         df_encoded[df_encoded.columns] = scaler.transform(df_encoded[df_encoded.columns])
 
-    return df_encoded, y, encoder, lb, scaler, one_hot_columns
+    return df_encoded, y, encoder, lb, scaler, one_hot_columns # type: ignore
 
