@@ -4,6 +4,12 @@ from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler, 
 
 from typing import List, Tuple, Optional, Union
 
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder, LabelBinarizer, StandardScaler, OneHotEncoder
+
+from typing import List, Tuple, Optional, Union
+
 def process_data(
     df: pd.DataFrame,
     categorical_features: List[str],
@@ -11,7 +17,8 @@ def process_data(
     training: bool = True,
     encoder: Optional[OneHotEncoder] = None,
     lb: Optional[LabelBinarizer] = None,
-) -> Tuple[pd.DataFrame, pd.Series, OneHotEncoder, LabelBinarizer]:
+    scaler: Optional[StandardScaler] = None  # Add the scaler argument
+) -> Tuple[pd.DataFrame, pd.Series, OneHotEncoder, LabelBinarizer, StandardScaler]:  # Update the return type hint
 
     """
     Process the input dataset, applying one-hot encoding and scaling.
@@ -50,6 +57,7 @@ def process_data(
     if training:
         encoder = LabelEncoder()
         lb = LabelBinarizer()
+        scaler = StandardScaler()  # Initialize the scaler
         encoder.fit(df[label])
         lb.fit(df[label])
 
@@ -61,10 +69,10 @@ def process_data(
 
     # Scale the numerical features
     if training:
-        scaler = StandardScaler()
         df_encoded[df_encoded.columns] = scaler.fit_transform(df_encoded[df_encoded.columns])
     else:
         df_encoded[df_encoded.columns] = scaler.transform(df_encoded[df_encoded.columns])
 
-    return df_encoded, y, encoder, lb, scaler, one_hot_columns # type: ignore
+    return df_encoded, y, encoder, lb, scaler  # Update the return statement
+
 
