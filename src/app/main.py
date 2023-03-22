@@ -28,7 +28,7 @@ model, encoder, lb, scaler = initialize()
 class InputData(BaseModel):
     age: int
     workclass: str
-    fnlwgt: int
+    fnlgt: int
     education: str
     education_num: int
     marital_status: str
@@ -46,7 +46,7 @@ class InputData(BaseModel):
             "example": {
                 "age": 39,
                 "workclass": "State-gov",
-                "fnlwgt": 77516,
+                "fnlgt": 77516,
                 "education": "Bachelors",
                 "education_num": 13,
                 "marital_status": "Never-married",

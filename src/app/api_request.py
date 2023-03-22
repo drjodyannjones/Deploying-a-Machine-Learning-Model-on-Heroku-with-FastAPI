@@ -7,7 +7,7 @@ api_url = "http://127.0.0.1:8000/predict"
 input_data = {
     "age": 39,
     "workclass": "State-gov",
-    "fnlwgt": 77516,
+    "fnlgt": 77516,
     "education": "Bachelors",
     "education_num": 13,
     "marital_status": "Never-married",

@@ -87,7 +87,7 @@ test['salary'] = lb.transform(test['salary'])
 
 # Define column transformer
 
-num_features = ["age", "fnlwgt", "education_num", "capital_gain", "capital_loss", "hours_per_week"]
+num_features = ["age", "fnlgt", "education_num", "capital_gain", "capital_loss", "hours_per_week"]
 
 ct = ColumnTransformer(
     transformers=[

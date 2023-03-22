@@ -8,7 +8,7 @@ def test_process_data():
     data = pd.DataFrame({
     "age": [40],
     "workclass": ["Private"],
-    "fnlwgt": [121772],
+    "fnlgt": [121772],
     "education": ["Assoc-voc"],
     "education_num": [11],
     "marital_status": ["Married-civ-spouse"],
