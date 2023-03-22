@@ -28,6 +28,7 @@ def test_predict_above_50k() -> None:
         "native-country": "United-States"
     }
     response = client.post("/predict", json=input_data)
+    print(response.content)
     assert response.status_code == 200
     assert response.json() == {"prediction": ">50K"}
 
@@ -49,5 +50,6 @@ def test_predict_below_50k() -> None:
         "native-country": "United-States"
     }
     response = client.post("/predict", json=input_data)
+    print(response.content)
     assert response.status_code == 200
     assert response.json() == {"prediction": "<=50K"}
