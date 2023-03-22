@@ -21,9 +21,9 @@ def initialize():
     encoder = joblib.load(encoder_path)
     lb = joblib.load(lb_path)
     scaler = joblib.load(scaler_path)
-    return model, encoder, lb
+    return model, encoder, lb, scaler
 
-model, encoder, lb = initialize()
+model, encoder, lb, scaler = initialize()
 
 class InputData(BaseModel):
     age: int
