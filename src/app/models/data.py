@@ -7,7 +7,7 @@ from typing import List, Tuple, Optional, Union
 def process_data(
     df: pd.DataFrame,
     categorical_features: List[str],
-    label: Optional[str] = None,
+    label: Optional[str] = 'salary',
     training: bool = True,
     encoder: Optional[OneHotEncoder] = None,
     lb: Optional[LabelBinarizer] = None,
