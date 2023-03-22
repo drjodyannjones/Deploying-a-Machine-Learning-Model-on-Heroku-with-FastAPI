@@ -73,6 +73,4 @@ def process_data(
     else:
         df_encoded[df_encoded.columns] = scaler.transform(df_encoded[df_encoded.columns])
 
-    return df_encoded, y, encoder, lb, scaler  # Update the return statement
-
-
+    return df_encoded, y, encoder, lb, scaler, one_hot_columns
