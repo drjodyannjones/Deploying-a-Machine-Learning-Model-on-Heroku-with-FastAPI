@@ -11,7 +11,7 @@ def test_welcome() -> None:
     assert response.json() == {"message": "Welcome to the salary prediction API"}
 
 def test_predict_above_50k() -> None:
-    input_data: Dict[str, Union[str, int]] = {
+    input_data = {
         "age": 40,
         "workclass": "Private",
         "fnlwgt": 121772,
@@ -32,7 +32,7 @@ def test_predict_above_50k() -> None:
     assert response.json() == {"prediction": ">50K"}
 
 def test_predict_below_50k() -> None:
-    input_data: Dict[str, Union[str, int]] = {
+    input_data = {
         "age": 25,
         "workclass": "Private",
         "fnlwgt": 226802,
