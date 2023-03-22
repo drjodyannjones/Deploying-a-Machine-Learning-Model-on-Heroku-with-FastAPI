@@ -49,7 +49,7 @@ def predict(input_data: InputData, model=Depends(load_model), encoder=Depends(lo
 
     # Process the input data with the process_data function
     X, _, _, _ = process_data(
-    data, categorical_features=cat_features, label=None, training=False, encoder=encoder, lb=lb
+    data, categorical_features=cat_features, label='salary', training=False, encoder=encoder, lb=lb
 )
 
 
