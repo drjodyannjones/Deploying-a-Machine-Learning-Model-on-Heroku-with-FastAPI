@@ -6,16 +6,20 @@ from src.app.models.data import process_data
 def test_process_data():
     # Load sample data for testing
     data = pd.DataFrame({
-        "age": [25, 45],
-        "workclass": ["Private", "Self-emp-not-inc"],
-        "education": ["Bachelors", "HS-grad"],
-        "marital-status": ["Never-married", "Married-civ-spouse"],
-        "occupation": ["Adm-clerical", "Exec-managerial"],
-        "relationship": ["Not-in-family", "Husband"],
-        "race": ["White", "Black"],
-        "sex": ["Male", "Female"],
-        "native-country": ["United-States", "Mexico"],
-        "salary": [">50K", "<=50K"]
+        "age": 40,
+        "workclass": "Private",
+        "fnlwgt": 121772,
+        "education": "Assoc-voc",
+        "education_num": 11,
+        "marital_status": "Married-civ-spouse",
+        "occupation": "Craft-repair",
+        "relationship": "Husband",
+        "race": "Asian-Pac-Islander",
+        "sex": "Male",
+        "capital_gain": 7298,
+        "capital_loss": 0,
+        "hours_per_week": 40,
+        "native_country": "United-States"
     })
 
     # Define categorical features
