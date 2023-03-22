@@ -36,7 +36,7 @@ def test_predict_below_50k() -> None:
     input_data = {
         "age": 25,
         "workclass": "Private",
-        "fnlwgt": 226802,
+        "fnlgt": 226802,
         "education": "11th",
         "education_num": 7,
         "marital_status": "Never-married",
