@@ -31,8 +31,9 @@ def test_process_data():
     ]
 
     X_train, y_train, encoder, lb, scaler, output_columns = process_data(
-    data, categorical_features=cat_features, label="salary", training=True)
+        data, categorical_features=cat_features, label="salary", training=True)
 
+    y_train = y_train.ravel()  # Add this line to make y_train 1-dimensional
 
     assert X_train.shape == (2, 17), "Processed data shape mismatch"
     assert y_train.shape == (2,), "Labels shape mismatch"
