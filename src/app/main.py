@@ -7,7 +7,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from models.data import process_data
 from models.train_model import inference
-from config import cat_features, model_path, encoder_path, lb_path
 from api.endpoints import router as api_router
 from config import cat_features, model_path, encoder_path, lb_path, scaler_path
 
@@ -73,7 +72,13 @@ def predict(input_data: InputData):
 
     # Process the input data with the process_data function
     X, _, _, _, _, _ = process_data(
-        data, categorical_features=cat_features, label="salary", training=False, encoder=encoder, lb=lb, scaler=scaler
+        data,
+        categorical_features=cat_features,
+        label="salary",
+        training=False,
+        encoder=encoder,
+        lb=lb,
+        scaler=scaler
     )
 
     # Run inference on the processed data
