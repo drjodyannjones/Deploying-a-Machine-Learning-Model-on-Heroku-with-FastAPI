@@ -26,6 +26,6 @@ def test_inference():
     print(preds)
 
     assert len(preds) == 2, "Incorrect number of predictions"
-    assert all(isinstance(p, (int, float)) for p in preds), "Predictions should be integers or floats"
+    assert all(isinstance(p, (int, float)) or np.issubdtype(p, np.number) for p in preds), "Predictions should be integers or floats"
 
 
