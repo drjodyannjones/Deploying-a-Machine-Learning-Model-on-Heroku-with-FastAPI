@@ -61,11 +61,14 @@ def process_data(
         encoder.fit(df[label])
         lb.fit(df[label])
 
-    # Encode the labels
-    y = lb.transform(df[label])
+        # Encode the labels
+        y = lb.transform(df[label])
 
-    # Remove the label column
-    df_encoded = df_encoded.drop(label, axis=1)
+        # Remove the label column
+        df_encoded = df_encoded.drop(label, axis=1)
+
+    else:
+        y = None
 
     # Scale the numerical features
     if training:
