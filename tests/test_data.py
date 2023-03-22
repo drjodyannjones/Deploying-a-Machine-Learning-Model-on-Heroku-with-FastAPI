@@ -21,7 +21,8 @@ def test_process_data():
     "capital_gain": [7298],
     "capital_loss": [0],
     "hours_per_week": [40],
-    "native_country": ["United-States"]
+    "native_country": ["United-States"],
+    "salary": [">50K"]
 })
 
 
