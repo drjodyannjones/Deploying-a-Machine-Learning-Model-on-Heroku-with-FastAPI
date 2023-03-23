@@ -45,8 +45,11 @@ def inference(model, X):
 
 
 def compute_model_metrics(y_true, y_pred):
-    precision, recall, fbeta, _ = precision_recall_fscore_support(y_true, y_pred, average='weighted')
+    precision, recall, fbeta, _ = precision_recall_fscore_support(
+        y_true, y_pred, average='weighted', zero_division=0
+    )
     return precision, recall, fbeta
+
 
 
 def compute_slice_performance(data, feature, model):
