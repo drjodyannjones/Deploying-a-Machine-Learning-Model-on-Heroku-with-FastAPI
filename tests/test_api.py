@@ -1,6 +1,6 @@
 import os
 import sys
-from typing import Dict
+import json
 import pandas as pd
 import numpy as np
 from fastapi.testclient import TestClient
@@ -9,14 +9,16 @@ from fastapi.testclient import TestClient
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 from app.main import app
-from app.main import scaler, encoder, lb, model
+from app.main import scaler, encoder, lb, model_columns
 
 client = TestClient(app)
+
 
 def test_welcome() -> None:
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Welcome to the salary prediction API"}
+
 
 def test_predict_above_50k() -> None:
     input_data = {
@@ -36,14 +38,23 @@ def test_predict_above_50k() -> None:
         "native_country": "United-States"
     }
 
-    input_df = pd.DataFrame(input_data, index=[0])
+    # Convert input data to DataFrame
+    input_df = pd.DataFrame.from_dict([input_data])
+
+    # Select only relevant columns
+    input_df = input_df[model_columns]
+
+    # Encode categorical variables
+    encoded_data = encoder.transform(input_df)
 
     # Scale numerical variables
-    scaled_data = scaler.transform(input_df)
+    scaled_data = scaler.transform(encoded_data)
 
-    prediction = lb.inverse_transform(model.predict(scaled_data))[0]
+    # Make prediction
+    response = client.post("/predict", json=json.loads(scaled_data.to_json(orient='values')))
+    assert response.status_code == 200
+    assert response.json() == {"prediction": ">50K"}
 
-    assert prediction == ">50K"
 
 def test_predict_below_50k() -> None:
     input_data = {
@@ -63,11 +74,19 @@ def test_predict_below_50k() -> None:
         "native_country": "United-States"
     }
 
-    input_df = pd.DataFrame(input_data, index=[0])
+    # Convert input data to DataFrame
+    input_df = pd.DataFrame.from_dict([input_data])
+
+    # Select only relevant columns
+    input_df = input_df[model_columns]
+
+    # Encode categorical variables
+    encoded_data = encoder.transform(input_df)
 
     # Scale numerical variables
-    scaled_data = scaler.transform(input_df)
+    scaled_data = scaler.transform(encoded_data)
 
-    prediction = lb.inverse_transform(model.predict(scaled_data))[0]
-
-    assert prediction == "<=50K"
+    # Make prediction
+    response = client.post("/predict", json=json.loads(scaled_data.to_json(orient='values')))
+    assert response.status_code == 200
+    assert response.json() == {"prediction": "<=50K"}
