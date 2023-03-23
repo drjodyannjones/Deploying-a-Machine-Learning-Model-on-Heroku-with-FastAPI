@@ -39,6 +39,9 @@ def test_predict_above_50k() -> None:
     # Encode categorical variables
     encoded_data = encoder.transform(pd.DataFrame(input_data, index=[0]))
 
+    # Remove one-hot encoding
+    encoded_data = encoded_data[:, :-1]
+
     # Scale numerical variables
     scaled_data = scaler.transform(encoded_data)
 
@@ -66,6 +69,9 @@ def test_predict_below_50k() -> None:
 
     # Encode categorical variables
     encoded_data = encoder.transform(pd.DataFrame(input_data, index=[0]))
+
+    # Remove one-hot encoding
+    encoded_data = encoded_data[:, :-1]
 
     # Scale numerical variables
     scaled_data = scaler.transform(encoded_data)
