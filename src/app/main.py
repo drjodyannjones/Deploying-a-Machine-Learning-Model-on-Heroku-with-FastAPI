@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from models.data import process_data
 from models.train_model import inference
 from api.endpoints import router as api_router
-from config import cat_features, model_path, ct_path, lb_path, scaler_path
+from config import cat_features, model_path, ct_path, lb_path, scaler_path, model_columns_path
 
 
 app = FastAPI()
@@ -21,10 +21,11 @@ def initialize():
     encoder = ct.named_transformers_['cat'].encoder  # Get the OneHotEncoder from the column transformer
     lb = joblib.load(lb_path)
     scaler = joblib.load(scaler_path)
-    return model, encoder, lb, scaler
+    model_columns = joblib.load(model_columns_path)
+    return model, encoder, lb, scaler, model_columns
 
 
-model, encoder, lb, scaler = initialize()
+model, encoder, lb, scaler, model_columns = initialize()
 
 class InputData(BaseModel):
     age: int
@@ -89,5 +90,3 @@ def predict(input_data: InputData):
     prediction = lb.inverse_transform(preds)[0]
 
     return {"prediction": prediction}
-
-
