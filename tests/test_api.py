@@ -1,6 +1,8 @@
 import os
 import sys
 from typing import Dict
+import pandas as pd
+import numpy as np
 from fastapi.testclient import TestClient
 
 # Add the path to the src folder to the Python path
