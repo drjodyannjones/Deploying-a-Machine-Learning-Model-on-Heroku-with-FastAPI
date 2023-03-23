@@ -11,8 +11,6 @@ from api.endpoints import router as api_router
 from config import cat_features, model_path, ct_path, lb_path, scaler_path
 
 
-
-
 app = FastAPI()
 
 app.include_router(api_router)

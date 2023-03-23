@@ -1,9 +1,13 @@
 import os
+import sys
 from typing import Dict
 from fastapi.testclient import TestClient
+
+# Add the path to the src folder to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
+
 from app.main import app
 from app.main import scaler, encoder, lb
-
 
 client = TestClient(app)
 
@@ -29,8 +33,14 @@ def test_predict_above_50k() -> None:
         "hours_per_week": 40,
         "native_country": "United-States"
     }
-    response = client.post("/predict", json=input_data)
-    print(response.content)
+
+    # Encode categorical variables
+    encoded_data = encoder.transform(pd.DataFrame(input_data, index=[0]))
+
+    # Scale numerical variables
+    scaled_data = scaler.transform(encoded_data)
+
+    response = client.post("/predict", json=scaled_data.tolist())
     assert response.status_code == 200
     assert response.json() == {"prediction": ">50K"}
 
@@ -52,7 +62,12 @@ def test_predict_below_50k() -> None:
         "native_country": "United-States"
     }
 
-    response = client.post("/predict", json=input_data)
-    print(response.content)
+    # Encode categorical variables
+    encoded_data = encoder.transform(pd.DataFrame(input_data, index=[0]))
+
+    # Scale numerical variables
+    scaled_data = scaler.transform(encoded_data)
+
+    response = client.post("/predict", json=scaled_data.tolist())
     assert response.status_code == 200
     assert response.json() == {"prediction": "<=50K"}
