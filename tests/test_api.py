@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 from app.main import app
-from app.main import scaler, encoder, lb
+from app.main import scaler, encoder, lb, ct
 
 client = TestClient(app)
 
@@ -36,18 +36,18 @@ def test_predict_above_50k() -> None:
         "native_country": "United-States"
     }
 
-    # Encode categorical variables
-    encoded_data = encoder.transform(pd.DataFrame(input_data, index=[0]))
+    # Create a DataFrame from the input data
+    input_df = pd.DataFrame(input_data, index=[0])
 
-    # Remove one-hot encoding
-    encoded_data = encoded_data[:, :-1]
+    # Apply the same preprocessing pipeline as used during training
+    input_df = ct.transform(input_df)
 
-    # Scale numerical variables
-    scaled_data = scaler.transform(encoded_data)
+    # Make a prediction using the model
+    prediction = lb.inverse_transform(model.predict(input_df))[0]
 
-    response = client.post("/predict", json=scaled_data.tolist())
+    response = client.post("/predict", json=input_data)
     assert response.status_code == 200
-    assert response.json() == {"prediction": ">50K"}
+    assert response.json() == {"prediction": prediction}
 
 def test_predict_below_50k() -> None:
     input_data = {
@@ -67,15 +67,15 @@ def test_predict_below_50k() -> None:
         "native_country": "United-States"
     }
 
-    # Encode categorical variables
-    encoded_data = encoder.transform(pd.DataFrame(input_data, index=[0]))
+    # Create a DataFrame from the input data
+    input_df = pd.DataFrame(input_data, index=[0])
 
-    # Remove one-hot encoding
-    encoded_data = encoded_data[:, :-1]
+    # Apply the same preprocessing pipeline as used during training
+    input_df = ct.transform(input_df)
 
-    # Scale numerical variables
-    scaled_data = scaler.transform(encoded_data)
+    # Make a prediction using the model
+    prediction = lb.inverse_transform(model.predict(input_df))[0]
 
-    response = client.post("/predict", json=scaled_data.tolist())
+    response = client.post("/predict", json=input_data)
     assert response.status_code == 200
-    assert response.json() == {"prediction": "<=50K"}
+    assert response.json() == {"prediction": prediction}
