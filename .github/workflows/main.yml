@@ -39,4 +39,9 @@ jobs:
     - name: Test with pytest
       run: |
         PYTHONPATH=./src pytest
+        
+    - name: Set up Git LFS
+      run: |
+        sudo apt-get install
+
 
